@@ -1,17 +1,29 @@
-# Step 1: Java 21 ka lightweight mahol taiyar karna
-FROM eclipse-temurin:21-jdk-alpine
-
-# Step 2: Temporary files ke liye ek volume create karna
-VOLUME /tmp
-
-# Step 3: Container ke andar ki dukan (working directory)
+# ==========================================
+# STAGE 1: Build Stage
+# ==========================================
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 
-# Step 4: Apni build ki hui jar file ko andar copy karna
-COPY target/auth-service-0.0.1.jar app.jar
+# Copy dependency descriptor first for better layer caching
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# Step 5: Bahar se traffic aane ke liye port kholna
+# Copy source code and build the executable JAR
+COPY src ./src
+RUN mvn clean package -DskipTests -B
+
+# ==========================================
+# STAGE 2: Run Stage
+# ==========================================
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+VOLUME /tmp
+
+# Copy the built JAR from the builder stage
+COPY --from=builder /app/target/*-SNAPSHOT.jar app.jar
+
+# Render/cloud platforms route traffic to this port by default
 EXPOSE 8080
 
-# Step 6: Container start hote hi app chala dena
 ENTRYPOINT ["java", "-jar", "app.jar"]
