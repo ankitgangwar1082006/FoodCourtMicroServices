@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers("/api/restaurants/ping", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/restaurants/**", "/api/menu-items/**").permitAll()
-
+                        .requestMatchers("/ping").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/restaurants").hasAnyAuthority("ADMIN", "RESTAURANT")
                         .requestMatchers(HttpMethod.DELETE, "/api/restaurants/**").hasAuthority("ADMIN")
 

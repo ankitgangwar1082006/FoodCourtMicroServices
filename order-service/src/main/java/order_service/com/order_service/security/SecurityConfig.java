@@ -22,8 +22,10 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/ping").permitAll()
                         .requestMatchers("/api/orders/ping", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                        .requestMatchers("/api/orders/**").authenticated()
+                        .requestMatchers("/api/orders/**").
+                        authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/restaurants/ping", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                         .requestMatchers("/api/users/login", "/api/users/register").permitAll()
+                        .requestMatchers("/ping").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
