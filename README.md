@@ -484,6 +484,7 @@ View registered services on the Eureka dashboard: **http://localhost:8761**
 - [Spring Cloud Config](https://spring.io/projects/spring-cloud-config)
 - [Razorpay Docs](https://razorpay.com/docs/)
 
----
+##Live Url
+https://api-gateway-2q2c.onrender.com
 
 **Last Updated:** June 2025
