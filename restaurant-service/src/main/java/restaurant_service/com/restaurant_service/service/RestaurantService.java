@@ -69,7 +69,7 @@ public class RestaurantService {
         existingRestaurant.setName(requestDto.getName());
         existingRestaurant.setAddress(requestDto.getAddress());
         existingRestaurant.setContactNumber(requestDto.getContactNumber());
-        existingRestaurant.setIsOpen(requestDto.getIsOpen());
+        existingRestaurant.setOpen(Boolean.TRUE.equals(requestDto.getOpen()));
         existingRestaurant.setImageUrl(requestDto.getImageUrl());
 
         Restaurant updatedRestaurant = restaurantRepository.save(existingRestaurant);
@@ -92,7 +92,7 @@ public class RestaurantService {
                 .name(dto.getName())
                 .address(dto.getAddress())
                 .contactNumber(dto.getContactNumber())
-                .isOpen(dto.getIsOpen())
+                .open(Boolean.TRUE.equals(dto.getOpen()))
                 .imageUrl(dto.getImageUrl())
                 .build();
     }
@@ -112,7 +112,7 @@ public class RestaurantService {
                 .name(restaurant.getName())
                 .address(restaurant.getAddress())
                 .contactNumber(restaurant.getContactNumber())
-                .isOpen(restaurant.getIsOpen())
+                .open(Boolean.TRUE.equals(restaurant.getOpen()))
                 .imageUrl(restaurant.getImageUrl())
                 .menuItems(menuItemDtos)
                 .ownerId(restaurant.getOwnerId())

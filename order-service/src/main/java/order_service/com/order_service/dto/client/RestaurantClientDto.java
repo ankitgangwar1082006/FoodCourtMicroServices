@@ -13,5 +13,5 @@ public class RestaurantClientDto {
     private Long id;
     private String name;
     private Long ownerId;
-    private Boolean open;
+    private Boolean open = false;
 }

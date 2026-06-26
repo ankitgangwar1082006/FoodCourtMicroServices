@@ -13,5 +13,5 @@ public class RestaurantRequestDto {
 
     private String contactNumber;
     private String imageUrl;
-    private Boolean isOpen;
+    private Boolean open = false;
 }

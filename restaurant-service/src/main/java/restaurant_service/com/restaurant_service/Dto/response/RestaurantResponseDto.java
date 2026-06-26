@@ -14,6 +14,9 @@ public class RestaurantResponseDto {
     private String address;
     private String contactNumber;
     private String imageUrl;
-    private boolean isOpen;
+
+    @Builder.Default
+    private boolean open = false;
+
     private List<MenuItemResponseDto> menuItems;
 }

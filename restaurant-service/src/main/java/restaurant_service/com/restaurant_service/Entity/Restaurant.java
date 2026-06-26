@@ -25,9 +25,22 @@ public class Restaurant {
     private String name;
     private String address;
     private String contactNumber;
-    private Boolean isOpen=false;
+
+    @Column(name = "is_open", nullable = false)
+    @Builder.Default
+    private Boolean open = false;
+
     private String imageUrl;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuItem> menuItems = new ArrayList<>();
+
+    @PrePersist
+    @PreUpdate
+    @PostLoad
+    private void applyBooleanDefaults() {
+        if (open == null) {
+            open = false;
+        }
+    }
 }
