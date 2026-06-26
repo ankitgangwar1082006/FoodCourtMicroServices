@@ -14,5 +14,6 @@ public class MenuItemClientDto {
     private Long restaurantId;
     private String name;
     private Double price;
-    private Boolean available;
+    private Boolean vegetarian = false;
+    private Boolean available = false;
 }

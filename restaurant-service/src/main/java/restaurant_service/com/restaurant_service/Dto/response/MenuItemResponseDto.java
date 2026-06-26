@@ -12,6 +12,10 @@ public class MenuItemResponseDto {
     private String description;
     private Double price;
     private String imageUrl;
-    private boolean isVegetarian;
-    private boolean isAvailable;
+
+    @Builder.Default
+    private boolean vegetarian = false;
+
+    @Builder.Default
+    private boolean available = false;
 }

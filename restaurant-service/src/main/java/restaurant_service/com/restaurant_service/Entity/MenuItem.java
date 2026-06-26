@@ -26,12 +26,31 @@ public class MenuItem {
     private String name;
     private String description;
     private Double price;
-    private Boolean isVegetarian=true;
-    private Boolean isAvailable=false;
+
+    @Column(name = "is_vegetarian", nullable = false)
+    @Builder.Default
+    private Boolean vegetarian = false;
+
+    @Column(name = "is_available", nullable = false)
+    @Builder.Default
+    private Boolean available = false;
+
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     @JsonIgnore // IMPORTANT: Yeh JSON banate time Infinite Loop (Restaurant->Item->Restaurant) ko rokega
     private Restaurant restaurant;
+
+    @PrePersist
+    @PreUpdate
+    @PostLoad
+    private void applyBooleanDefaults() {
+        if (vegetarian == null) {
+            vegetarian = false;
+        }
+        if (available == null) {
+            available = false;
+        }
+    }
 }

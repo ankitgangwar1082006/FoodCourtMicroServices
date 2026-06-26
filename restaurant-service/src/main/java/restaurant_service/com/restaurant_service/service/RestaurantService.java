@@ -125,8 +125,8 @@ public class RestaurantService {
                 .name(item.getName())
                 .description(item.getDescription())
                 .price(item.getPrice())
-                .isVegetarian(item.getIsVegetarian())
-                .isAvailable(item.getIsAvailable())
+                .vegetarian(Boolean.TRUE.equals(item.getVegetarian()))
+                .available(Boolean.TRUE.equals(item.getAvailable()))
                 .imageUrl(item.getImageUrl())
                 .build();
     }

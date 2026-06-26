@@ -84,8 +84,8 @@ public class MenuItemService {
         existingItem.setDescription(requestDto.getDescription());
         existingItem.setPrice(requestDto.getPrice());
         existingItem.setImageUrl(requestDto.getImageUrl());
-        existingItem.setIsVegetarian(requestDto.getIsVegetarian());
-        existingItem.setIsAvailable(requestDto.getIsAvailable());
+        existingItem.setVegetarian(Boolean.TRUE.equals(requestDto.getVegetarian()));
+        existingItem.setAvailable(Boolean.TRUE.equals(requestDto.getAvailable()));
         existingItem.setRestaurant(restaurant);
 
         MenuItem updatedItem = menuItemRepository.save(existingItem);
@@ -109,8 +109,8 @@ public class MenuItemService {
                 .description(dto.getDescription())
                 .price(dto.getPrice())
                 .imageUrl(dto.getImageUrl())
-                .isVegetarian(dto.getIsVegetarian())
-                .isAvailable(dto.getIsAvailable())
+                .vegetarian(Boolean.TRUE.equals(dto.getVegetarian()))
+                .available(Boolean.TRUE.equals(dto.getAvailable()))
                 .restaurant(restaurant)
                 .build();
     }
@@ -123,8 +123,8 @@ public class MenuItemService {
                 .description(item.getDescription())
                 .price(item.getPrice())
                 .imageUrl(item.getImageUrl())
-                .isVegetarian(item.getIsVegetarian())
-                .isAvailable(item.getIsAvailable())
+                .vegetarian(Boolean.TRUE.equals(item.getVegetarian()))
+                .available(Boolean.TRUE.equals(item.getAvailable()))
                 .build();
     }
 }

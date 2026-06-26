@@ -159,7 +159,7 @@ public class OrderService {
             throw new RuntimeException("Server Error: Unable to fetch details for Item ID " + menuItemId);
         }
 
-        if (!menuItemClientDto.getAvailable()) {
+        if (!Boolean.TRUE.equals(menuItemClientDto.getAvailable())) {
             throw new RuntimeException("Sorry! Item '" + menuItemClientDto.getName() + "' is currently out of stock.");
         }
 
@@ -183,7 +183,7 @@ public class OrderService {
             throw new RuntimeException("Server Error: Details for Restaurant ID " + restaurantId + " not found.");
         }
 
-        if (!restaurantDto.getOpen()) {
+        if (!Boolean.TRUE.equals(restaurantDto.getOpen())) {
             throw new RuntimeException("Sorry! Restaurant '" + restaurantDto.getName() + "' is currently closed. Order cannot be placed.");
         }
 

@@ -14,8 +14,8 @@ public class MenuItemRequestDto {
     private Double price;
 
     private String imageUrl;
-    private Boolean isVegetarian;
-    private Boolean isAvailable;
+    private Boolean vegetarian = false;
+    private Boolean available = false;
 
     @NotNull(message = "Restaurant ID is required")
     private Long restaurantId;
