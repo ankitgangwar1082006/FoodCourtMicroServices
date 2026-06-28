@@ -129,6 +129,7 @@ public class MenuItemService {
         return MenuItemResponseDto.builder()
                 .id(item.getId())
                 .restaurantId(item.getRestaurant().getId())
+                .restaurantName(item.getRestaurant().getName())
                 .name(item.getName())
                 .description(item.getDescription())
                 .price(item.getPrice())

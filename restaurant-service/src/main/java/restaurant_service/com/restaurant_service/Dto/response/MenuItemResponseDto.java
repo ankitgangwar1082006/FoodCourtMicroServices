@@ -8,6 +8,7 @@ import lombok.Data;
 public class MenuItemResponseDto {
     private Long id;
     private Long restaurantId;
+    private String restaurantName;
     private String name;
     private String description;
     private Double price;

@@ -103,7 +103,7 @@ public class RestaurantService {
         if (restaurant.getMenuItems() != null) {
             menuItemDtos = new ArrayList<>();
             for (MenuItem item : restaurant.getMenuItems()) {
-                menuItemDtos.add(mapMenuItemToResponseDto(item));
+                menuItemDtos.add(mapMenuItemToResponseDto(item, restaurant));
             }
         }
 
@@ -119,9 +119,11 @@ public class RestaurantService {
                 .build();
     }
 
-    private MenuItemResponseDto mapMenuItemToResponseDto(MenuItem item) {
+    private MenuItemResponseDto mapMenuItemToResponseDto(MenuItem item, Restaurant restaurant) {
         return MenuItemResponseDto.builder()
                 .id(item.getId())
+                .restaurantId(restaurant.getId())
+                .restaurantName(restaurant.getName())
                 .name(item.getName())
                 .description(item.getDescription())
                 .price(item.getPrice())
