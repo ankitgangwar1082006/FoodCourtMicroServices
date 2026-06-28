@@ -37,6 +37,9 @@ public class MenuItem {
 
     private String imageUrl;
 
+    @Column(name = "category_id", nullable = false)
+    private Integer categoryId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     @JsonIgnore // IMPORTANT: Yeh JSON banate time Infinite Loop (Restaurant->Item->Restaurant) ko rokega

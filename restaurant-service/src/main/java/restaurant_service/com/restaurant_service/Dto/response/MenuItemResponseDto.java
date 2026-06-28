@@ -18,4 +18,6 @@ public class MenuItemResponseDto {
 
     @Builder.Default
     private boolean available = false;
+
+    private Integer categoryId;
 }

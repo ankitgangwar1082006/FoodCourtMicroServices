@@ -128,6 +128,7 @@ public class RestaurantService {
                 .vegetarian(Boolean.TRUE.equals(item.getVegetarian()))
                 .available(Boolean.TRUE.equals(item.getAvailable()))
                 .imageUrl(item.getImageUrl())
+                .categoryId(item.getCategoryId())
                 .build();
     }
 }

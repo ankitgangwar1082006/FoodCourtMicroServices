@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import restaurant_service.com.restaurant_service.Dto.request.MenuItemRequestDto;
 import restaurant_service.com.restaurant_service.Dto.response.MenuItemResponseDto;
 import restaurant_service.com.restaurant_service.Dto.response.MenuItemResponsePageDto;
@@ -20,7 +21,7 @@ public class MenuItemController {
 
     @PostMapping
     public ResponseEntity<MenuItemResponseDto> createMenuItem(
-            @RequestBody MenuItemRequestDto requestDto,
+            @Valid @RequestBody MenuItemRequestDto requestDto,
             @RequestHeader("Authorization") String authHeader) {
 
         Long loggedInId = jwtService.fetchId(authHeader.substring(7));
@@ -37,16 +38,17 @@ public class MenuItemController {
     @GetMapping
     public ResponseEntity<MenuItemResponsePageDto> getAllMenuItems(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize) {
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "categoryId", required = false) Integer categoryId) {
 
-        MenuItemResponsePageDto responsePageDto = menuItemService.getAllMenuItems(pageNo, pageSize);
+        MenuItemResponsePageDto responsePageDto = menuItemService.getAllMenuItems(pageNo, pageSize, categoryId);
         return new ResponseEntity<>(responsePageDto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MenuItemResponseDto> updateMenuItem(
             @PathVariable Long id,
-            @RequestBody MenuItemRequestDto requestDto,
+            @Valid @RequestBody MenuItemRequestDto requestDto,
             @RequestHeader("Authorization") String authHeader) {
 
         Long loggedInId = jwtService.fetchId(authHeader.substring(7));

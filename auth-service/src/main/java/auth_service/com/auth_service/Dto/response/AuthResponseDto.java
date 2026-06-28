@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AuthResponseDto {
-    Long id;
+    private Long id;
     private String msg;
     private String token;
 }

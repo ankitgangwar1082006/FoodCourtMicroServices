@@ -16,4 +16,5 @@ public class MenuItemClientDto {
     private Double price;
     private Boolean vegetarian = false;
     private Boolean available = false;
+    private Integer categoryId;
 }

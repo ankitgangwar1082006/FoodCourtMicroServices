@@ -13,6 +13,7 @@ import restaurant_service.com.restaurant_service.Entity.MenuItem;
 import restaurant_service.com.restaurant_service.Entity.Restaurant;
 import restaurant_service.com.restaurant_service.Repository.MenuItemRepository;
 import restaurant_service.com.restaurant_service.Repository.RestaurantRepository;
+import restaurant_service.com.restaurant_service.enums.FoodCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +44,16 @@ public class MenuItemService {
         return mapToResponseDto(menuItem);
     }
 
-    public MenuItemResponsePageDto getAllMenuItems(int pageNo, int pageSize) {
+    public MenuItemResponsePageDto getAllMenuItems(int pageNo, int pageSize, Integer categoryId) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<MenuItem> menuItemPage = menuItemRepository.findAll(pageable);
+        Page<MenuItem> menuItemPage;
+
+        if (categoryId != null) {
+            validateCategoryId(categoryId);
+            menuItemPage = menuItemRepository.findByCategoryId(categoryId, pageable);
+        } else {
+            menuItemPage = menuItemRepository.findAll(pageable);
+        }
 
         List<MenuItem> menuItems = menuItemPage.getContent();
         List<MenuItemResponseDto> responseDtos = new ArrayList<>();
@@ -86,6 +94,7 @@ public class MenuItemService {
         existingItem.setImageUrl(requestDto.getImageUrl());
         existingItem.setVegetarian(Boolean.TRUE.equals(requestDto.getVegetarian()));
         existingItem.setAvailable(Boolean.TRUE.equals(requestDto.getAvailable()));
+        existingItem.setCategoryId(requestDto.getCategoryId());
         existingItem.setRestaurant(restaurant);
 
         MenuItem updatedItem = menuItemRepository.save(existingItem);
@@ -111,6 +120,7 @@ public class MenuItemService {
                 .imageUrl(dto.getImageUrl())
                 .vegetarian(Boolean.TRUE.equals(dto.getVegetarian()))
                 .available(Boolean.TRUE.equals(dto.getAvailable()))
+                .categoryId(dto.getCategoryId())
                 .restaurant(restaurant)
                 .build();
     }
@@ -125,6 +135,13 @@ public class MenuItemService {
                 .imageUrl(item.getImageUrl())
                 .vegetarian(Boolean.TRUE.equals(item.getVegetarian()))
                 .available(Boolean.TRUE.equals(item.getAvailable()))
+                .categoryId(item.getCategoryId())
                 .build();
+    }
+
+    private void validateCategoryId(Integer categoryId) {
+        if (!FoodCategory.isValid(categoryId)) {
+            throw new RuntimeException("Category ID must be between 1 and 5");
+        }
     }
 }
