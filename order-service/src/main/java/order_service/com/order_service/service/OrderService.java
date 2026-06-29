@@ -221,6 +221,7 @@ public class OrderService {
                 .paymentStatus(order.getPaymentStatus())
                 .orderStatus(order.getOrderStatus())
                 .createdAt(order.getCreatedAt())
+                .deliveryOtp(order.getDeliveryOtp())
                 .items(itemDtos)
                 .build();
     }
