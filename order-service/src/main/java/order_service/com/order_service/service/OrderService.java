@@ -86,10 +86,6 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Error: Order not found with ID: " + orderId));
         OrderResponseDto orderResponseDto = mapOrderToResponse(order);
-        if(!order.getOrderStatus().equals(OrderStatus.DELIVERED) && order.getUserId().equals(userId))
-        {
-            orderResponseDto.setDeliveryOtp(order.getDeliveryOtp());
-        }
         return orderResponseDto;
     }
 
@@ -171,6 +167,7 @@ public class OrderService {
                 .menuItemId(menuItemId)
                 .priceAtTimeOfOrder(menuItemClientDto.getPrice())
                 .quantity(requestDto.getQuantity())
+                .menuItemName(menuItemClientDto.getName())
                 .order(order)
                 .build();
     }
@@ -195,6 +192,7 @@ public class OrderService {
                 .paymentMethod(requestDto.getPaymentMethod())
                 .deliveryAddress(requestDto.getDeliveryAddress())
                 .deliveryOtp(generateDeliveryOtp())
+                .restaurantName(restaurantDto.getName())
                 .build();
     }
 
@@ -207,8 +205,13 @@ public class OrderService {
                         .menuItemId(item.getMenuItemId())
                         .priceAtTimeOfOrder(item.getPriceAtTimeOfOrder())
                         .quantity(item.getQuantity())
+                        .menuItemName(item.getMenuItemName())
                         .build());
             }
+        }
+        String safeOtp = null;
+        if (order.getOrderStatus() != OrderStatus.DELIVERED && order.getOrderStatus() != OrderStatus.CANCELLED) {
+            safeOtp = order.getDeliveryOtp();
         }
 
         return OrderResponseDto.builder()
@@ -219,9 +222,10 @@ public class OrderService {
                 .deliveryAddress(order.getDeliveryAddress())
                 .paymentMethod(order.getPaymentMethod())
                 .paymentStatus(order.getPaymentStatus())
+                .deliveryOtp(safeOtp)
                 .orderStatus(order.getOrderStatus())
+                .restaurantName(order.getRestaurantName())
                 .createdAt(order.getCreatedAt())
-                .deliveryOtp(order.getDeliveryOtp())
                 .items(itemDtos)
                 .build();
     }

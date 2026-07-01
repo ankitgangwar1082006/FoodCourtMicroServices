@@ -26,4 +26,6 @@ public class OrderItem {
     private Integer quantity;
 
     private Double priceAtTimeOfOrder;
+
+    private String menuItemName;
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @Builder
 public class OrderResponseDto {
-
     private Long id;
     private String deliveryOtp;
     private Long userId;
@@ -26,4 +25,19 @@ public class OrderResponseDto {
     private List<OrderItemResponseDto> items;
     private String razorpayOrderId;
     private String msg;
+    private String restaurantName;
+
+    public void method(int arr[])
+    {
+        int ans=0;
+        for(int i=0 ; i<arr.length ; i++)
+        {
+            ans=Math.max(solve(arr,i),ans);
+        }
+    }
+    public int solve(int arr[] , int i)
+    {
+        if(i==0) return arr[i];
+        return Math.max(arr[i],solve(arr,i-1)+arr[i]);
+    }
 }

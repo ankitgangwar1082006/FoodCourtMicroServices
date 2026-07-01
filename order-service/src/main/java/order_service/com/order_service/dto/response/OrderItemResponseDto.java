@@ -10,4 +10,5 @@ public class OrderItemResponseDto {
     private Long menuItemId;
     private Integer quantity;
     private Double priceAtTimeOfOrder;
+    private String menuItemName;
 }
